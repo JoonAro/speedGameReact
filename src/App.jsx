@@ -1,9 +1,15 @@
+import NewGame from "./components/NewGame"
 function App() {
-  const [count, setCount] = useState(0)
 
+  const gameSetHandler = (difficulty) => {
+    console.log(difficulty)
+
+  }
   return (
     <>
-      App will be here
+      <h1>Whack a mole!</h1>
+
+      <NewGame onClick={gameSetHandler} />
     </>
   )
 }
