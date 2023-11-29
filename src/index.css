@@ -1,35 +1,194 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #333;
+    background-attachment: fixed;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: azure;
+    font-size: xx-large;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #333;
+    flex-direction: column;
+}
+
+.extra3 {
+    display: flex;
+    width: 100%;
+    background-image: linear-gradient(white, rgb(82, 130, 251), rgb(72, 114, 222));
+    height: 100px;
+}
+
+.container {
+    background: green;
+    padding: 1rem, 0, 200px, 0;
+}
+
+.extra {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(rgb(0, 66, 0), green);
+    width: 100%;
+    height: 100px;
+}
+
+.score {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    min-width: 100px;
+    height: 100px;
+}
+
+h1 {
+    font-size: xx-large;
+    padding: 1.5rem;
+}
+
+.circles {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .circle {
-  width: 200px;
-  height: 200px;
-  background-color: #333;
-  background-image: url(wormhole3.jpg);
-  border-radius: 50%;
-  margin: 0.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
+    width: 200px;
+    height: 200px;
+    background-color: #333;
+    background-image: url(assets/wormhole3.jpg);
+    border-radius: 50%;
+    margin: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* pointer-events: none; */
+    /* no click trigger. everything is disabled */
+}
+
+/* make circles with border-radius 50%
+display flex forward gets the numbers centered */
+.circle.active {
+    background-image: url(face2.jpg);
+}
+
+.end {
+    display: none;
+}
+
+.showEnd {
+    display: flex;
+    background-image: url(quitNormal1.jpg);
+    padding-top: 1.8rem;
+    justify-content: center;
+    align-items: center;
+    height: 152px;
+    width: 191px;
+}
+
+.showEnd:hover {
+    background-image: url(quitHover2.jpg);
+}
+
+.startImg {
+    display: flex;
+    background-image: url(startNormal.jpg);
+    padding-top: 1.8rem;
+    justify-content: center;
+    align-items: center;
+    height: 152px;
+    width: 191px;
+}
+
+.startImg:hover {
+    background-image: url(startHover.jpg);
+}
+
+.extra2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: green;
+    width: 100%;
+    height: 200px;
+}
+
+.scoreboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+    position: fixed;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to bottom, white, rgb(82, 130, 251), rgb(72, 114, 222), rgb(0, 66, 0), rgb(0, 66, 0), rgb(0, 98, 0), green, green, green);
+}
+
+h2 {
+    padding: 1rem;
+}
+
+p {
+    padding: 1rem;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    width: 75%;
+    margin-top: 5rem;
+    background: #333;
+    height: 80%;
+    min-height: 730px;
+    border-radius: 5px;
+    word-spacing: 2.5px;
+    padding: 0 7px 0 7px;
+}
+
+.sameLine {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    line-height: 3.5rem;
+}
+
+.close {
+    margin: 0 0 0 96%;
+}
+
+.close:hover {
+    cursor: pointer;
+    color: rgb(188, 0, 0);
+}
+
+.copyright {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.reset:hover {
+    cursor: pointer;
 }
