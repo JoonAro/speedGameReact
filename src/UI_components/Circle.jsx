@@ -1,6 +1,7 @@
-function Circle({ id, clickHandler }) {
+import face from '../assets/face2.jpg';
+function Circle({ id, clickHandler, current }) {
     return (
-        <div className="circle" onClick={() => clickHandler(id)}>
+        <div className="circle" style={current === id ? { backgroundImage: 'url("/src/assets/face2.jpg")' } : { color: "blue" }} onClick={() => clickHandler(id)}>
             <p>{id}</p>
         </div>);
 }

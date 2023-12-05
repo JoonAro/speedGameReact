@@ -9,6 +9,10 @@ const getRndInteger = (min, max) => {
 }
 
 function App() {
+  //let nextActive = 1;
+
+
+  //const firstCircle = getRndInteger(0, 2)
   //sort of like doing
   //let player = {};
 
@@ -21,6 +25,7 @@ function App() {
   const [gameOn, setGameOn] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   const [current, setCurrent] = useState(-1);
+  //const [current, setCurrent] = useState(firstCircle);
 
   let timer;
   let pace = 1000;
@@ -31,7 +36,7 @@ function App() {
     const difficultyChoice = difficultySettings[difficultyIndex].amount;
     const circlesArray = Array.from({ length: difficultyChoice }, (x, i) => i);
     setCircles(circlesArray);
-
+    //const topRandomNr = circlesArray.length;
     //based on level, we find the matching object from levels array, and then make a new array for the circles, with amount in the object.
     /*   const difficultyIndex = difficultySettings.findIndex(el => el.name === difficulty); */
     //finding the index from levels.js
@@ -51,7 +56,8 @@ function App() {
     )
     setGameLaunch(!gameLaunch)
     setGameOn(!gameOn)
-    randomNumb();
+    randomNumb()
+    //randomNumb(topRandomNr, nextActive)
   }
   const stopHandler = () => {
     setGameOn(!gameOn)
@@ -73,9 +79,7 @@ function App() {
     do {
       nextActive = getRndInteger(0, circles.length)
     } while (nextActive === current);
-
-    setCurrent(nextActive)
-
+    setCurrent(nextActive);
     timer = setTimeout(randomNumb, pace)
     console.log(nextActive);
   };
@@ -88,7 +92,7 @@ function App() {
       <p>{score}</p>
 
       {gameLaunch && <NewGame onclick={gameSetHandler} />}
-      {gameOn && <Game score={score} circles={circles} clickHandler={clickHandler} stopHandler={stopHandler} />}
+      {gameOn && <Game score={score} circles={circles} clickHandler={clickHandler} stopHandler={stopHandler} current={current} />}
       {gameOver && <GameOver resetGameHandler={resetGameHandler} {...player} score={score} />}
     </>
   )
