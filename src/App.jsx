@@ -1,90 +1,137 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import NewGame from "./components/NewGame";
 import { difficultySettings } from "./levels";
 import Game from "./components/Game";
 import GameOver from "./components/GameOver";
-//randomnumgen
-const getRndInteger = (min, max) => {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+
+let circleNumbers = [];
+//making an array of numbers for the rest of the game 
+const getRndIntArr = (min, max) => {
+  let counter;
+  for (counter = 0; counter <= 100; counter++) {
+    let newNumb = Math.floor(Math.random() * (max - min)) + min;
+    if (counter < 1) {
+      circleNumbers[counter] = newNumb;
+    }
+    else if (circleNumbers[counter - 1] === newNumb) {
+      counter--;
+    }
+    else {
+      circleNumbers[counter] = newNumb;
+    }
+  }
+  console.log(circleNumbers);
 }
 
 function App() {
-  //let nextActive = 1;
-
-
-  //const firstCircle = getRndInteger(0, 2)
-  //sort of like doing
-  //let player = {};
-
-  //have condition => by default show newgame and hide Game after getting data for game, hide newgame and display game
-  //gameOver component (default hidden) will hide game component
   const [player, setPlayer] = useState();
   const [circles, setCircles] = useState([]);
   const [score, setScore] = useState(0);
   const [gameLaunch, setGameLaunch] = useState(true);
   const [gameOn, setGameOn] = useState(false);
   const [gameOver, setGameOver] = useState(false);
-  const [current, setCurrent] = useState(-1);
-  //const [current, setCurrent] = useState(firstCircle);
-
-  let timer;
+  const [changeImg, setChangeImg] = useState('url("/src/assets/face2.jpg")');
+  const [boolean, setBoolean] = useState(false);
+  const [current, setCurrent] = useState();
+  const timeOutIdRef = useRef(null);
+  const roundsCount = useRef(0);
   let pace = 1000;
-  // const [player, setPlayer] = useState({}) if you use this you need to open the object and its more difficult;
-  //const levels = [] could be here
+  let rounds2 = 0;
+  let difficultyAmount;
   const gameSetHandler = (difficulty, name) => {
-    const difficultyIndex = difficultySettings.findIndex(el => el.name === difficulty);
-    const difficultyChoice = difficultySettings[difficultyIndex].amount;
-    const circlesArray = Array.from({ length: difficultyChoice }, (x, i) => i);
+    //two lines commented out are replaced and length: difficultyChoice by amount
+    /* const difficultyIndex = difficultySettings.findIndex(el => el.name === difficulty);
+    const difficultyChoice = difficultySettings[difficultyIndex].amount; */
+    const { amount } = difficultySettings.find(el => el.name === difficulty);
+    difficultyAmount = amount;
+    const circlesArray = Array.from({ length: amount }, (_, i) => i);
     setCircles(circlesArray);
-    //const topRandomNr = circlesArray.length;
-    //based on level, we find the matching object from levels array, and then make a new array for the circles, with amount in the object.
-    /*   const difficultyIndex = difficultySettings.findIndex(el => el.name === difficulty); */
+    //based on level, we find the matching object from levels array, and then make a new array for the circles, with amount in the object.  
     //finding the index from levels.js
-    /*     const difficultyChoice = difficultySettings[difficultyIndex].amount; */
-
-    /*  const circlesArray = Array.from({ length: difficultyChoice }, (x, i) => i); */
-
-    /*  console.log('circlesArray', circlesArray); */
-    /* console.log('amount of circles', difficultyChoice);
-
-    console.log('difficultyIndex', difficultyIndex); */
     setPlayer(
       {
         difficulty: difficulty,
         name: name
-      }
-    )
-    setGameLaunch(!gameLaunch)
-    setGameOn(!gameOn)
-    randomNumb()
-    //randomNumb(topRandomNr, nextActive)
-  }
+      });
+    setGameLaunch((prevLaunch) => !prevLaunch);
+    setGameOn(!gameOn);
+    //we get an array of 100 numbers based on difficulty which are then used in oneTurn
+    getRndIntArr(0, difficultyAmount);
+    oneTurn();
+  };
   const stopHandler = () => {
     setGameOn(!gameOn)
     setGameOver(!gameOver)
-    clearTimeout(timer)
+    clearTimeout(timeOutIdRef.current);
+    timeOutIdRef.current = null;
   }
   const resetGameHandler = () => {
     setGameLaunch(!gameLaunch)
     setGameOver(!gameOver)
     setScore(0);
+    setBoolean(true);
   }
   const clickHandler = (id) => {
-    setScore(score + 10);
-
+    if (current !== id) {
+      stopHandler();
+    }
+    setChangeImg('url("/src/assets/reaction3.jpg")');
+    if (boolean === false) {
+      setScore((prevScore) => prevScore + 10);
+      roundsCount.current--;
+    }
+    setBoolean(true);
   }
-  //look for next active circle as long as current circle === nextactive
-  const randomNumb = () => {
-    let nextActive;
-    do {
-      nextActive = getRndInteger(0, circles.length)
-    } while (nextActive === current);
-    setCurrent(nextActive);
-    timer = setTimeout(randomNumb, pace)
+
+  /* do {
+    nextActive = getRndInteger(0, difficultyAmount)
+    // nextActive = getRndInteger(0, circles.length)
     console.log(nextActive);
+    if (nextActive !== current) {
+      //        setNewNumb(true);
+      setCurrent(nextActive);
+    }
+  } while (nextActive === current); */
+  //    if (newNumb === true) {
+  //look for next active circle as long as current circle === nextactive
+  const oneTurn = () => {
+    let currentCircle;
+    currentCircle = circleNumbers[rounds2];
+    setCurrent(currentCircle);
+    console.log(currentCircle);
+    if (roundsCount.current >= 3) {
+      return stopHandler();
+    }
+    setBoolean(false);
+    timeOutIdRef.current = setTimeout(oneTurn, pace);
+    roundsCount.current++;
+    rounds2++;
+    pace -= 10;
+    setChangeImg('url("/src/assets/face2.jpg")');
   };
+
+  /*   const randomNumbGen = () => {
+      let nextActive;
+      nextActive = getRndInteger(0, difficultyAmount);
+      console.log(nextActive);
+      console.log(current);
+      setChangeImg('url("/src/assets/face2.jpg")');
+      if (nextActive === current) {
+        if (nextActive < 1) {
+          nextActive++;
+          setCurrent(nextActive);
+        }
+        else {
+          nextActive--;
+          setCurrent(nextActive);
+        }
+      }
+      else {
+        setCurrent(nextActive);
+      }
+      setPrevious(nextActive);
+    }; */
   //setTimeout from react
-  console.log(player);
 
   return (
     <>
@@ -92,8 +139,8 @@ function App() {
       <p>{score}</p>
 
       {gameLaunch && <NewGame onclick={gameSetHandler} />}
-      {gameOn && <Game score={score} circles={circles} clickHandler={clickHandler} stopHandler={stopHandler} current={current} />}
-      {gameOver && <GameOver resetGameHandler={resetGameHandler} {...player} score={score} />}
+      {gameOn && <Game score={score} circles={circles} clickHandler={clickHandler} stopHandler={stopHandler} current={current} changeImg={changeImg} />}
+      {gameOver && <GameOver resetGameHandler={resetGameHandler} stopHandler={stopHandler} {...player} score={score} />}
     </>
   )
 }

@@ -80,7 +80,7 @@ h1 {
 
 /* make circles with border-radius 50%
 display flex forward gets the numbers centered */
-.circle.active {
+.circleactive {
     background-image: url(face2.jpg);
 }
 
