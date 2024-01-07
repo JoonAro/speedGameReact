@@ -44,6 +44,7 @@ function App() {
     getArrOfHundred(0, difficultyAmount);
     oneTurn();
     music.play();
+    setFeedBack('You can do better,');
   };
   const getArrOfHundred = (min, max) => {
     let counter;
@@ -77,7 +78,6 @@ function App() {
     setGameOver(!gameOver);
     setGameOn(false);
     setScore(0);
-    setFeedBack('You can do better,');
   }
   const soundHandler = () => {
     if (soundCount.current === 0 || soundCount.current === 3 || soundCount.current === 4) {
