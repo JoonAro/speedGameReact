@@ -2,6 +2,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    border-style: none;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 body {
@@ -9,10 +11,9 @@ body {
     align-items: center;
     justify-content: center;
     background-color: #333;
-    background-attachment: fixed;
     text-align: center;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    color: azure;
+    color: whitesmoke;
     font-size: xx-large;
 }
 
@@ -32,8 +33,12 @@ header {
 }
 
 .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: green;
     padding: 1rem, 0, 200px, 0;
+    width: 100vw;
 }
 
 .extra {
@@ -46,51 +51,44 @@ header {
 }
 
 .score {
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: center;
     min-width: 100px;
     height: 100px;
 }
 
-h1 {
-    font-size: xx-large;
-    padding: 1.5rem;
-}
-
 .circles {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    width: 550px;
 }
 
 .circle {
-    width: 200px;
-    height: 200px;
+    width: 160px;
+    height: 160px;
     background-color: #333;
     background-image: url(assets/wormhole3.jpg);
+    background-size: contain;
     border-radius: 50%;
     margin: 0.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    /* pointer-events: none; */
-    /* no click trigger. everything is disabled */
 }
 
-/* make circles with border-radius 50%
-display flex forward gets the numbers centered */
-.circleactive {
-    background-image: url(face2.jpg);
+.circle:nth-child(1) {
+    margin-left: calc(20% - 10px);
 }
 
-.end {
-    display: none;
+.circle:nth-child(2) {
+    margin-right: calc(20% - 10px);
 }
 
 .showEnd {
     display: flex;
-    background-image: url(quitNormal1.jpg);
+    background-image: url(/src/assets/quitNormal1.jpg);
     padding-top: 1.8rem;
     justify-content: center;
     align-items: center;
@@ -99,21 +97,7 @@ display flex forward gets the numbers centered */
 }
 
 .showEnd:hover {
-    background-image: url(quitHover2.jpg);
-}
-
-.startImg {
-    display: flex;
-    background-image: url(startNormal.jpg);
-    padding-top: 1.8rem;
-    justify-content: center;
-    align-items: center;
-    height: 152px;
-    width: 191px;
-}
-
-.startImg:hover {
-    background-image: url(startHover.jpg);
+    background-image: url(/src/assets/quitHover2.jpg);
 }
 
 .extra2 {
@@ -129,9 +113,7 @@ display flex forward gets the numbers centered */
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* justify-content: center; */
     position: fixed;
-    z-index: 2;
     left: 0;
     top: 0;
     width: 100%;
@@ -139,10 +121,7 @@ display flex forward gets the numbers centered */
     background-image: linear-gradient(to bottom, white, rgb(82, 130, 251), rgb(72, 114, 222), rgb(0, 66, 0), rgb(0, 66, 0), rgb(0, 98, 0), green, green, green);
 }
 
-h2 {
-    padding: 1rem;
-}
-
+h2,
 p {
     padding: 1rem;
 }
@@ -152,24 +131,61 @@ p {
     flex-direction: column;
     justify-items: center;
     align-items: center;
-    width: 75%;
+    width: 550px;
     margin-top: 5rem;
     background: #333;
     height: 80%;
     min-height: 730px;
-    border-radius: 5px;
+    border-radius: 10px;
     word-spacing: 2.5px;
     padding: 0 7px 0 7px;
 }
 
-.sameLine {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-    line-height: 3.5rem;
+/* matching GameOver and NewGame h2:s height on the page */
+.filler {
+    height: 39px;
+}
+
+input {
+    margin: 15px 0;
+    height: 40px;
+    width: 200px;
+    font-size: larger;
+    padding: 0 0 0 10px;
+    background-color: #333;
+    color: whitesmoke;
+    border: 1px whitesmoke solid;
+    border-radius: 10px;
+}
+
+.contentHolder {
+    width: 400px;
+    height: 400px;
+    border-radius: 10px;
+}
+
+.difficultyButton {
+    height: 60px;
+    width: 120px;
+    border-radius: 10px;
+    margin: 10px;
+    font-size: x-large;
+}
+
+.difficultyButton:first-child {
+    background-color: green;
+}
+
+.difficultyButton:nth-child(2) {
+    background-color: rgb(0, 95, 154);
+}
+
+.difficultyButton:nth-child(3) {
+    background-color: rgb(207, 120, 0);
+}
+
+.difficultyButton:hover {
+    color: whitesmoke;
 }
 
 .close {
@@ -177,18 +193,6 @@ p {
 }
 
 .close:hover {
-    cursor: pointer;
+    cursor: default;
     color: rgb(188, 0, 0);
-}
-
-.copyright {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
-}
-
-.reset:hover {
-    cursor: pointer;
 }

@@ -1,17 +1,18 @@
-function GameOver({ resetGameHandler, name, score, difficulty }) {
+function GameOver({ resetGameHandler, name, score, difficulty, feedBack }) {
     return (
         <div className="scoreboard">
             <div className="content">
                 <span className="close" onClick={resetGameHandler}>&times;</span>
-                <h2>Speedgame</h2>
-                <div className="sameLine">
-                    <p className="finalScore">{score}</p>
-                    <p className="feedback">Way to go {name}! Your difficulty was {difficulty}</p>
+                <div className="contentHolder">
+                    <h2>Speedgame</h2>
+                    <div className="sameLine">
+                        <p className="finalScore">You scored {score} points on {difficulty} difficulty!</p>
+                        <p className="feedback">{feedBack} {name}!</p>
+                    </div>
+                    <p>Press x to setup a new game!</p>
                 </div>
-                <p>Click me if you want a rematch!</p>
             </div>
         </div>
     );
 }
-
 export default GameOver;

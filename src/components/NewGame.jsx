@@ -1,23 +1,24 @@
 import { useState } from "react";
-
 function NewGame({ onclick }) {
-    const [name, setName] = useState('')
-    //binding name at row 14 anonymous function
-    const inputHandler = (e) => {
-        setName(e.target.value)
-    }
+    const [name, setName] = useState('buddy');
+    const inputHandler = (e) => { setName(e.target.value); }
     return (
-        <div>
-            <h2>Start a game by choosing difficulty and entering your name</h2>
-            <input type="text" onChange={inputHandler} />
-            <div>
-                <button onClick={() => onclick('easy', name)}>Easy</button>
-                <button onClick={() => onclick('normal', name)}>Normal</button>
-                <button onClick={() => onclick('hard', name)}>Hard</button>
+        <div className="scoreboard">
+            <div className="content">
+                <div className="filler"></div>
+                <h2>Speedgame</h2>
+                <div className="contentHolder">
+                    <h3>Enter your name</h3>
+                    <input type="text" onChange={inputHandler} />
+                    <h3>Start the game by choosing difficulty</h3>
+                    <div>
+                        <button className="difficultyButton" onClick={() => onclick('easy', name)}>Easy</button>
+                        <button className="difficultyButton" onClick={() => onclick('normal', name)}>Normal</button>
+                        <button className="difficultyButton" onClick={() => onclick('hard', name)}>Hard</button>
+                    </div>
+                </div>
             </div>
         </div>
     );
-
 }
-
 export default NewGame
