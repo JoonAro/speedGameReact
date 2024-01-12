@@ -2,7 +2,7 @@ function GameOver({ resetGameHandler, name, score, difficulty, feedBack }) {
     return (
         <div className="scoreboard">
             <div className="content">
-                <span className="close" onClick={resetGameHandler}>&times;</span>
+                <button className="close" onClick={resetGameHandler}>&times;</button>
                 <div className="contentHolder">
                     <h2>Speedgame</h2>
                     <div className="sameLine">

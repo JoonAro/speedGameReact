@@ -190,6 +190,9 @@ input {
 
 .close {
     margin: 0 0 0 96%;
+    font-size: 2rem;
+    background-color: transparent;
+    color: whitesmoke;
 }
 
 .close:hover {

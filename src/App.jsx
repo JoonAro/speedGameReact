@@ -15,7 +15,7 @@ function App() {
   const [current, setCurrent] = useState();
   const [feedBack, setFeedBack] = useState();
   const [punchSound, setPunchSound] = useState(new Audio('/big-punch-short-with-male-moan-83735.mp3'));
-  const [music, setMusic] = useState(new Audio('/public/8bit-music-for-game-68698.mp3'));
+  const [music] = useState(new Audio('/public/8bit-music-for-game-68698.mp3'));
   const timeOutIdRef = useRef(null);
   const roundsCount = useRef(0);
   let pace = 800;
@@ -24,9 +24,6 @@ function App() {
   let circleNumbers = [];
   const soundCount = useRef(0);
   const gameSetHandler = (difficulty, name) => {
-    //two lines commented out are replaced and length: difficultyChoice by amount
-    /* const difficultyIndex = difficultySettings.findIndex(el => el.name === difficulty);
-    const difficultyChoice = difficultySettings[difficultyIndex].amount; */
     const { amount } = difficultySettings.find(el => el.name === difficulty);
     difficultyAmount = amount;
     const circlesArray = Array.from({ length: amount }, (_, i) => i);
@@ -40,14 +37,16 @@ function App() {
       });
     setGameLaunch((prevLaunch) => !prevLaunch);
     setGameOn(!gameOn);
-    //we get an array of 100 numbers based on difficulty which are then used in oneTurn func
     getArrOfHundred(0, difficultyAmount);
     oneTurn();
     music.play();
     setFeedBack('You can do better,');
   };
+  //we get an array of 100 numbers based on difficulty which are then used in oneTurn func
+  //if the new number is the same as the previous one, we re-run the loop and avoid the possibility of an infinite loop by limiting the re-runs to 100 per
   const getArrOfHundred = (min, max) => {
     let counter;
+    let maxReRuns = 100;
     for (counter = 0; counter < 100; counter++) {
       let newNumb = Math.floor(Math.random() * (max - min)) + min;
       if (counter < 1) {
@@ -55,9 +54,15 @@ function App() {
       }
       else if (circleNumbers[counter - 1] === newNumb) {
         counter--;
+        maxReRuns--;
+      }
+      else if (maxReRuns === 0) {
+        console.log('Failed to generate array of hundred');
+        return;
       }
       else {
         circleNumbers[counter] = newNumb;
+        maxReRuns = 100;
       }
     }
   }

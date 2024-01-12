@@ -12,7 +12,7 @@ function Game({ score, circles, stopHandler, clickHandler, current, changeImg })
                 </div>
             </div>
             <div className="extra2">
-                <div className="showEnd" onClick={stopHandler}></div>
+                <button className="showEnd" onClick={stopHandler}></button>
             </div>
         </div>
     )
