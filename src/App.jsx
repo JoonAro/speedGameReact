@@ -5,8 +5,8 @@ import Game from "./components/Game";
 import GameOver from "./components/GameOver";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+const music = new Audio('/8bit-music-for-game-68698.mp3');
 function App() {
-  const [music, setMusic] = useState(new Audio('/public/8bit-music-for-game-68698.mp3'));
   const [player, setPlayer] = useState();
   const [circles, setCircles] = useState([]);
   const [score, setScore] = useState(0);
