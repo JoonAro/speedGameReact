@@ -8,7 +8,7 @@ function Game({ score, circles, stopHandler, clickHandler, current, changeImg })
             </div>
             <div className="container">
                 <div className="circles">
-                    {circles.map((_, i) => <Circle key={i} id={i} clickHandler={clickHandler} current={current} changeImg={changeImg} />)}
+                    {circles.map((_, i) => <Circle key={i} id={i} clickHandler={clickHandler} current={current} changeImg={changeImg} score={score} />)}
                 </div>
             </div>
             <div className="extra2">

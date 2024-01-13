@@ -44,7 +44,7 @@ function App() {
     music.current.play();
   };
   //we get an array of 100 numbers based on difficulty which are then used in oneTurn func
-  //if the new number is the same as the previous one, we re-run the loop and avoid the possibility of an infinite loop by limiting the re-runs to 100 per
+  //if the new number is the same as the previous one, we re-run the loop and avoid the possibility of an infinite loop by limiting the re-runs to 100 per. If it fails it reloads the page.
   const getArrOfHundred = (min, max) => {
     let counter;
     let maxReRuns = 100;
@@ -58,7 +58,7 @@ function App() {
         maxReRuns--;
       }
       else if (maxReRuns === 0) {
-        console.log('Failed to generate array of hundred');
+        window.location.reload();
         return;
       }
       else {
@@ -68,14 +68,13 @@ function App() {
     }
   }
   const stopHandler = () => {
-    setGameOn(!gameOn)
-    setGameOver(!gameOver)
+    setGameOn(!gameOn);
+    setGameOver(!gameOver);
     clearTimeout(timeOutIdRef.current);
     timeOutIdRef.current = null;
     setBoolean(false);
     roundsCount.current = 0;
     circleNumbers = [];
-    feedBackHandler();
     music.current.pause();
     music.current.currentTime = 0;
   }
@@ -84,6 +83,7 @@ function App() {
     setGameOver(!gameOver);
     setGameOn(false);
     setScore(0);
+    setFeedBack('You can do better,');
   }
   const soundHandler = () => {
     if (soundCount.current === 0 || soundCount.current === 3 || soundCount.current === 4) {
@@ -100,7 +100,7 @@ function App() {
     }
   }
   //boolean stops you from being able to click the active circle more than once in a turn
-  const clickHandler = (id) => {
+  const clickHandler = (id, score) => {
     if (current !== id) {
       stopHandler();
     }
@@ -113,8 +113,9 @@ function App() {
       soundHandler();
     }
     setBoolean(true);
+    feedBackHandler(score);
   }
-  const feedBackHandler = () => {
+  const feedBackHandler = (score) => {
     if (score < 150) {
       setFeedBack('You can do better,');
     } else if (score >= 150 && score < 300) {
@@ -144,7 +145,7 @@ function App() {
       <Header />
       {gameLaunch && <NewGame onclick={gameSetHandler} />}
       {gameOn && <Game score={score} circles={circles} clickHandler={clickHandler} stopHandler={stopHandler} current={current} changeImg={changeImg} />}
-      {gameOver && <GameOver resetGameHandler={resetGameHandler} stopHandler={stopHandler} feedBack={feedBack} {...player} score={score} />}
+      {gameOver && <GameOver resetGameHandler={resetGameHandler} feedBack={feedBack} {...player} score={score} />}
       <Footer />
     </main>
   )
