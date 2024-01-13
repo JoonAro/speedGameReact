@@ -12,10 +12,10 @@ function App() {
   const [gameLaunch, setGameLaunch] = useState(true);
   const [gameOn, setGameOn] = useState(false);
   const [gameOver, setGameOver] = useState(false);
-  const [changeImg, setChangeImg] = useState('url("/src/assets/face2.jpg")');
   const [boolean, setBoolean] = useState(false);
   const [current, setCurrent] = useState();
   const [feedBack, setFeedBack] = useState();
+  const [punched, setPunched] = useState(false);
   const [punchSound, setPunchSound] = useState(new Audio('/big-punch-short-with-male-moan-83735.mp3'));
   const music = useRef(new Audio('/public/8bit-music-for-game-68698.mp3'));
   const timeOutIdRef = useRef(null);
@@ -104,7 +104,7 @@ function App() {
     if (current !== id) {
       stopHandler();
     }
-    setChangeImg('url("/src/assets/reaction3.jpg")');
+    setPunched(true);
     if (current === id && boolean === false) {
       setScore((prevScore) => prevScore + 10);
       roundsCount.current--;
@@ -127,6 +127,7 @@ function App() {
     }
   }
   const oneTurn = () => {
+    setPunched(false);
     let currentCircle;
     currentCircle = circleNumbers[arrIndex];
     setCurrent(currentCircle);
@@ -138,13 +139,12 @@ function App() {
     roundsCount.current++;
     arrIndex++;
     pace -= 7;
-    setChangeImg('url("/src/assets/face2.jpg")');
   };
   return (
     <main>
       <Header />
       {gameLaunch && <NewGame onclick={gameSetHandler} />}
-      {gameOn && <Game score={score} circles={circles} clickHandler={clickHandler} stopHandler={stopHandler} current={current} changeImg={changeImg} />}
+      {gameOn && <Game score={score} circles={circles} clickHandler={clickHandler} stopHandler={stopHandler} current={current} punched={punched} />}
       {gameOver && <GameOver resetGameHandler={resetGameHandler} feedBack={feedBack} {...player} score={score} />}
       <Footer />
     </main>

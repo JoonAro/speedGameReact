@@ -90,6 +90,14 @@ header {
     justify-content: center;
 }
 
+.active {
+    background-image: url(assets/face2.jpg);
+}
+
+.punched {
+    background-image: url(assets/reaction3.jpg);
+}
+
 .circle:nth-child(1) {
     margin-left: calc(20% - 10px);
 }
