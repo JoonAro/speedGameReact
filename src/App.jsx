@@ -5,6 +5,7 @@ import Game from "./components/Game";
 import GameOver from "./components/GameOver";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+const music = new Audio('/public/8bit-music-for-game-68698.mp3')
 function App() {
   const [player, setPlayer] = useState();
   const [circles, setCircles] = useState([]);
@@ -17,7 +18,6 @@ function App() {
   const [feedBack, setFeedBack] = useState();
   const [punched, setPunched] = useState(false);
   const [punchSound, setPunchSound] = useState(new Audio('/big-punch-short-with-male-moan-83735.mp3'));
-  const music = useRef(new Audio('/public/8bit-music-for-game-68698.mp3'));
   const timeOutIdRef = useRef(null);
   const roundsCount = useRef(0);
   let pace = 800;
@@ -41,7 +41,7 @@ function App() {
     setGameOn(!gameOn);
     getArrOfHundred(0, difficultyAmount);
     oneTurn();
-    music.current.play();
+    music.play();
   };
   //we get an array of 100 numbers based on difficulty which are then used in oneTurn func
   //if the new number is the same as the previous one, we re-run the loop and avoid the possibility of an infinite loop by limiting the re-runs to 100 per. If it fails it reloads the page.
@@ -75,8 +75,8 @@ function App() {
     setBoolean(false);
     roundsCount.current = 0;
     circleNumbers = [];
-    music.current.pause();
-    music.current.currentTime = 0;
+    music.pause();
+    music.currentTime = 0;
   }
   const resetGameHandler = () => {
     setGameLaunch(!gameLaunch);
