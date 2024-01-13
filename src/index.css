@@ -10,26 +10,37 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #333;
+    background-color: green;
     text-align: center;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     color: whitesmoke;
     font-size: xx-large;
 }
 
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: green;
+    height: 100vh;
+}
+
 header {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    height: 90px;
+    width: 100%;
     background-color: #333;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .extra3 {
     display: flex;
     width: 100%;
     background-image: linear-gradient(white, rgb(82, 130, 251), rgb(72, 114, 222));
-    height: 100px;
+    height: 90px;
 }
 
 .container {
@@ -62,17 +73,18 @@ header {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    width: 550px;
+    min-width: 540px;
+    max-width: 620px;
 }
 
 .circle {
-    width: 160px;
-    height: 160px;
+    width: 150px;
+    height: 150px;
     background-color: #333;
     background-image: url(assets/wormhole3.jpg);
     background-size: contain;
     border-radius: 50%;
-    margin: 0.5rem;
+    margin: 0 0.1rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -86,14 +98,27 @@ header {
     margin-right: calc(20% - 10px);
 }
 
+.circle:nth-child(n+3):nth-child(-n+5) {
+    width: 170px;
+    height: 170px;
+    margin: 0 0.3rem;
+}
+
+.circle:nth-child(n+6):nth-child(-n+7) {
+    width: 200px;
+    height: 200px;
+    margin: 0.45rem 0.85rem;
+}
+
 .showEnd {
     display: flex;
     background-image: url(/src/assets/quitNormal1.jpg);
+    background-size: contain;
     padding-top: 1.8rem;
     justify-content: center;
     align-items: center;
-    height: 152px;
-    width: 191px;
+    height: 137px;
+    width: 170px;
 }
 
 .showEnd:hover {
@@ -106,7 +131,7 @@ header {
     align-items: center;
     background: green;
     width: 100%;
-    height: 200px;
+    height: 147px;
 }
 
 .scoreboard {
@@ -123,7 +148,7 @@ header {
 
 h2,
 p {
-    padding: 1rem;
+    padding: 1rem 0;
 }
 
 .content {
@@ -198,4 +223,15 @@ input {
 .close:hover {
     cursor: default;
     color: rgb(188, 0, 0);
+}
+
+footer {
+    display: flex;
+    height: 40px;
+    width: 100%;
+    background-color: green;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 0;
 }

@@ -8,7 +8,7 @@ function NewGame({ onclick }) {
                 <div className="filler"></div>
                 <h2>Speedgame</h2>
                 <div className="contentHolder">
-                    <h3>Enter your name</h3>
+                    <h3>Player name</h3>
                     <input type="text" onChange={inputHandler} />
                     <h3>Start the game by choosing difficulty</h3>
                     <div>

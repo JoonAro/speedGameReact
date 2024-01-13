@@ -3,6 +3,8 @@ import NewGame from "./components/NewGame";
 import { difficultySettings } from "./levels";
 import Game from "./components/Game";
 import GameOver from "./components/GameOver";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
 function App() {
   const [player, setPlayer] = useState();
   const [circles, setCircles] = useState([]);
@@ -15,7 +17,7 @@ function App() {
   const [current, setCurrent] = useState();
   const [feedBack, setFeedBack] = useState();
   const [punchSound, setPunchSound] = useState(new Audio('/big-punch-short-with-male-moan-83735.mp3'));
-  const [music] = useState(new Audio('/public/8bit-music-for-game-68698.mp3'));
+  const music = useRef(new Audio('/public/8bit-music-for-game-68698.mp3'));
   const timeOutIdRef = useRef(null);
   const roundsCount = useRef(0);
   let pace = 800;
@@ -39,8 +41,7 @@ function App() {
     setGameOn(!gameOn);
     getArrOfHundred(0, difficultyAmount);
     oneTurn();
-    music.play();
-    setFeedBack('You can do better,');
+    music.current.play();
   };
   //we get an array of 100 numbers based on difficulty which are then used in oneTurn func
   //if the new number is the same as the previous one, we re-run the loop and avoid the possibility of an infinite loop by limiting the re-runs to 100 per
@@ -75,8 +76,8 @@ function App() {
     roundsCount.current = 0;
     circleNumbers = [];
     feedBackHandler();
-    music.pause();
-    music.currentTime = 0;
+    music.current.pause();
+    music.current.currentTime = 0;
   }
   const resetGameHandler = () => {
     setGameLaunch(!gameLaunch);
@@ -114,7 +115,7 @@ function App() {
     setBoolean(true);
   }
   const feedBackHandler = () => {
-    if (score < 150 && score) {
+    if (score < 150) {
       setFeedBack('You can do better,');
     } else if (score >= 150 && score < 300) {
       setFeedBack('Good job,');
@@ -139,11 +140,13 @@ function App() {
     setChangeImg('url("/src/assets/face2.jpg")');
   };
   return (
-    <>
+    <main>
+      <Header />
       {gameLaunch && <NewGame onclick={gameSetHandler} />}
       {gameOn && <Game score={score} circles={circles} clickHandler={clickHandler} stopHandler={stopHandler} current={current} changeImg={changeImg} />}
       {gameOver && <GameOver resetGameHandler={resetGameHandler} stopHandler={stopHandler} feedBack={feedBack} {...player} score={score} />}
-    </>
+      <Footer />
+    </main>
   )
 }
 export default App
